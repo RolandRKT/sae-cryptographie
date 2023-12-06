@@ -94,11 +94,19 @@ def encrypt(key, plaintext):
     """Encrypt plaintext with given key"""
     data = fk(keyGen(key)[0], ip(plaintext))
     return fp(fk(keyGen(key)[1], swapNibbles(data)))
+
+def encrypt_text(key, text):
+    """Encrypt text with given key"""
+    encrypted_text = ""
+    for char in text:
+        encrypted_char = encrypt(key, ord(char))
+        encrypted_text += chr(encrypted_char)
+    return encrypted_text
  
 def decrypt(key, ciphertext):
     """Decrypt ciphertext with given key"""
     data = fk(keyGen(key)[1], ip(ciphertext))
-    return fp(fk(keyGen(key)[0], swapNibbles(data)))  
+    return fp(fk(keyGen(key)[0], swapNibbles(data)))
  
 if __name__ == '__main__':
     # Test vectors described in "Simplified DES (SDES)"
